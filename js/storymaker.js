@@ -22,7 +22,7 @@ var btnRandom = document.querySelector("#random");
 var displayStory = document.querySelector("#story");
 
 // Variables for pre-defined arrays
-let nouns1 = ["The turkey", "The dog", "mom", "dad", "My Teacher", "The Elephant", "The Cat"];
+let nouns1 = ["The turkey", "The dog", "Mom", "Dad", "My Teacher", "The Elephant", "The Cat"];
 let verbs = ["ate", "kissed", "saw", "danced", "with", "doesn't like", "sat on"];
 let adjectives = ["a scary", "a sad", "a goofy", "a slimy", "a fat", "a barking"];
 let nouns2 = ["goat", "monkey", "fish", "cow", "frog", "bug", "worm"];
@@ -42,8 +42,12 @@ function getRandomElement(arr) {
 }
 
 function noun1_on_click() {
-    chosenNoun1 = getRandomElement(nouns1);
-    displayNoun1.innerText = chosenNoun1;
+    if (nouns1.length > 0) {
+        chosenNoun1 = getRandomElement(nouns1);
+        displayNoun1.innerText = chosenNoun1;
+    } else {
+        console.warn("The nouns1 array is empty!");
+    }
 }
 
 function verb_on_click() {
@@ -67,7 +71,11 @@ function setting_on_click() {
 }
 
 function playback_on_click() {
-    displayStory.innerText = `${chosenNoun1} ${chosenVerb}  ${chosenAdjective} ${chosenNoun2} ${chosenSetting}.`;
+    if (chosenNoun1 && chosenVerb && chosenAdjective && chosenNoun2 && chosenSetting) {
+        displayStory.innerText = `${chosenNoun1} ${chosenVerb} ${chosenAdjective} ${chosenNoun2} ${chosenSetting}.`;
+    } else {
+        displayStory.innerText = "Please select all words before playing back the story.";
+    }
 }
 
 function random_on_click() {
@@ -93,6 +101,12 @@ function resetStory() {
     displaySetting.innerText = '';
     displayStory.innerText = '';
 }
+function studentInfo() {
+    var studentName = "Vinnie Chachra";
+    document.querySelector("#studentId").innerText = "Student ID:200547583 " + studentName;
+}
+
+
 /* Event Listeners
 -------------------------------------------------- */
 btnNoun1.addEventListener("click", noun1_on_click);
@@ -102,11 +116,9 @@ btnNoun2.addEventListener("click", noun2_on_click);
 btnSetting.addEventListener("click", setting_on_click);
 btnPlayback.addEventListener("click", playback_on_click);
 btnRandom.addEventListener("click", random_on_click);
+document.querySelector("#studentInfo").addEventListener("click", studentInfo);
 
-// Additional: Displaying student ID/Name
-var studentName = "Vinnie Chachra";
-document.querySelector("#studentId").innerText += " Student ID:200547583 " + studentName; 
- 
+
 // Creating and appending the reset button
 var btnReset = document.createElement("button");
 btnReset.id = "reset";
